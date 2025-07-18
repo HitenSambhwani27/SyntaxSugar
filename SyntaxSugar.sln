@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxSugar.API", "SyntaxSugar.API\SyntaxSugar.API.csproj", "{0B51F44A-441A-4658-B0AC-0EB741E6F076}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxSugar.Core", "SyntaxSugar.Core\SyntaxSugar.Core.csproj", "{A27B8A18-AA01-4C8F-8041-FC7975C7FF37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxSugar.Application", "SyntaxSugar.Application\SyntaxSugar.Application.csproj", "{2C1B44EC-3898-41EB-AEDE-D9E5826B14E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxSugar.Infrastructure", "SyntaxSugar.Infrastructure\SyntaxSugar.Infrastructure.csproj", "{959C1E83-E83A-42D2-AA61-C190A89CED51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntaxSugar.Tests", "SyntaxSugar.Tests\SyntaxSugar.Tests.csproj", "{E9AAF1A1-8809-4601-A9FF-AC90365C94E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B51F44A-441A-4658-B0AC-0EB741E6F076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B51F44A-441A-4658-B0AC-0EB741E6F076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B51F44A-441A-4658-B0AC-0EB741E6F076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B51F44A-441A-4658-B0AC-0EB741E6F076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A27B8A18-AA01-4C8F-8041-FC7975C7FF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27B8A18-AA01-4C8F-8041-FC7975C7FF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A27B8A18-AA01-4C8F-8041-FC7975C7FF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A27B8A18-AA01-4C8F-8041-FC7975C7FF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C1B44EC-3898-41EB-AEDE-D9E5826B14E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1B44EC-3898-41EB-AEDE-D9E5826B14E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1B44EC-3898-41EB-AEDE-D9E5826B14E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1B44EC-3898-41EB-AEDE-D9E5826B14E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{959C1E83-E83A-42D2-AA61-C190A89CED51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959C1E83-E83A-42D2-AA61-C190A89CED51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959C1E83-E83A-42D2-AA61-C190A89CED51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959C1E83-E83A-42D2-AA61-C190A89CED51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9AAF1A1-8809-4601-A9FF-AC90365C94E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9AAF1A1-8809-4601-A9FF-AC90365C94E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9AAF1A1-8809-4601-A9FF-AC90365C94E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9AAF1A1-8809-4601-A9FF-AC90365C94E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

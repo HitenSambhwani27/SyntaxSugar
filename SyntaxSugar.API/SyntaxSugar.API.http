@@ -1,0 +1,6 @@
+@SyntaxSugar.API_HostAddress = http://localhost:5156
+
+GET {{SyntaxSugar.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
