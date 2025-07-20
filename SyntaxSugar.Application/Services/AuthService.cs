@@ -18,12 +18,14 @@ namespace SyntaxSugar.Application.Services
         private IUserRepository _userRepository;
         private readonly IPasswordService _passwordHasher;
         private readonly ITokenService _tokenService;
+        private readonly IBlacklistTokenService _blacklistTokenService;
 
-        public AuthService(IUserRepository userRepository, IPasswordService passwordHasher, ITokenService tokenService)
+        public AuthService(IUserRepository userRepository, IPasswordService passwordHasher, ITokenService tokenService, IBlacklistTokenService blacklistTokenService)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
             _tokenService = tokenService;
+            _blacklistTokenService = blacklistTokenService;
         }
         public async Task<bool> RegisterUserAsync(RegisterUserDTO userDTO)
         {
@@ -79,6 +81,15 @@ namespace SyntaxSugar.Application.Services
                 LoginToken = token,
             };
 
+        }
+
+        public async Task LogoutUserAsync(string token)
+        {
+            if (!await _blacklistTokenService.IsTokenBlacklisted(token))
+            {
+                _blacklistTokenService.BlackListTokens(token);
+            }
+           
         }
 
     }

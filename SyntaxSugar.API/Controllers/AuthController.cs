@@ -49,5 +49,16 @@ namespace SyntaxSugar.API.Controllers
             }
         }
 
+        [HttpPost("LogoutUser")]
+        public async Task<IActionResult> LogoutUser(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("Token is required for logout.");
+            }
+            await _authService.LogoutUserAsync(token);
+            return Ok("User logged out successfully.");
+        }
+
     }
 }

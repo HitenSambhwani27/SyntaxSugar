@@ -13,5 +13,7 @@ namespace SyntaxSugar.Application.Interface.Auth
 
         Task<LoginResultDto> LoginUserAsync (LoginUserDTO userDTO);
 
+        Task LogoutUserAsync(string token);
+
     }
 }
