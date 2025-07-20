@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SyntaxSugar.Infrastructure.Services
 {
-    public class PasswordHasher : IPasswordService
+    public class PasswordHasherServices : IPasswordService
     {
         private readonly PasswordHasher<User> _passwordHasher = new PasswordHasher<User>();
         public string HashedPassword(string password)
