@@ -1,5 +1,5 @@
 ﻿using SyntaxSugar.Application.DTOs;
-using SyntaxSugar.Application.Interface.Auth;
+using SyntaxSugar.Application.Interface;
 using SyntaxSugar.Core.Entities;
 using SyntaxSugar.Core.Enums;
 using SyntaxSugar.Core.Interfaces;

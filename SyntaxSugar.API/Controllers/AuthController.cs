@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SyntaxSugar.Application.DTOs;
-using SyntaxSugar.Application.Interface.Auth;
+using SyntaxSugar.Application.Interface;
 
 namespace SyntaxSugar.API.Controllers
 {
