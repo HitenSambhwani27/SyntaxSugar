@@ -21,7 +21,7 @@ namespace SyntaxSugar.Infrastructure.Services
             return _passwordHasher.HashPassword(null, password);
         }
 
-        public bool VerifyPassword(string password, string HashedPassword)
+        public bool VerifyPassword( string HashedPassword, string password)
         {
             var result = _passwordHasher.VerifyHashedPassword(null, HashedPassword, password);
             return result == PasswordVerificationResult.Success;

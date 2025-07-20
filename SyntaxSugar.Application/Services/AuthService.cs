@@ -63,7 +63,7 @@ namespace SyntaxSugar.Application.Services
                 };
             }
             var user = await _userRepository.GetUserByNameAsync(userDTO.UserName);
-            if(userDTO.Password != _passwordHasher.HashedPassword(userDTO.Password))
+            if(!_passwordHasher.VerifyPassword(user.PasswordHash, userDTO.Password))
             {
                 return new LoginResultDto
                 {
@@ -71,7 +71,7 @@ namespace SyntaxSugar.Application.Services
                     Error = "Incorrect Password",
                 };
             }
-            var token =      _tokenService.GetToken(user.Id, user.Username);
+            var token =  _tokenService.GetToken(user.Id, user.Username);
 
             return new LoginResultDto
             {

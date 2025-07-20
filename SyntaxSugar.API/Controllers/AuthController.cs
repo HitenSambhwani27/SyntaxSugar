@@ -45,7 +45,7 @@ namespace SyntaxSugar.API.Controllers
             }
             else
             {
-                return Unauthorized(new { message = result.Error }s);
+                return Unauthorized(new { message = result.Error });
             }
         }
 
