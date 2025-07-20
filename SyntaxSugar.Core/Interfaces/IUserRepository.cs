@@ -13,7 +13,7 @@ namespace SyntaxSugar.Core.Interfaces
         Task<User> GetUserByNameAsync(string name);
 
         Task<User> GetUserByEmailAsync(string email);
-        Task<User> AddUser(User user);
+        Task AddUserAsync(User user);
 
     }
 }
