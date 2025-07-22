@@ -10,5 +10,6 @@ namespace SyntaxSugar.Core.Interfaces
     public interface IUserProblemRepository
     {
         Task AddOrUpdateUserProblemStatusAsync(UserProblemStatus status);
+        Task<UserProblemStatus> GetUserProblemStatusAsync(Guid userId, Guid problemId);
     }
 }
