@@ -23,6 +23,12 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPasswordService, PasswordHasherServices>();
 builder.Services.AddScoped<IBlacklistTokenService, BlackListTokenService>(); 
 
+builder.Services.AddScoped<IProblemRepository, ProblemRepository>();
+builder.Services.AddScoped<IProblemWriteRepository, ProblemRepository>();
+builder.Services.AddScoped<IUserProblemRepository, ProblemRepository>();
+builder.Services.AddScoped<ICacheService, RedisCacheService>();
+builder.Services.AddScoped<IProblemService, ProbelemService>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
