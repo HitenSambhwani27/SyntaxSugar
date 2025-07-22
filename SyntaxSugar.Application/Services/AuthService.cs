@@ -89,7 +89,7 @@ namespace SyntaxSugar.Application.Services
             {
                 _blacklistTokenService.BlackListTokens(token);
             }
-           
+
         }
 
     }

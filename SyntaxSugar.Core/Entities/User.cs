@@ -14,5 +14,6 @@ namespace SyntaxSugar.Core.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public Role Role { get; set; }
+        public ICollection<UserProblemStatus> UserProblemStatuses { get; set; } = new List<UserProblemStatus>();
     }
 }
