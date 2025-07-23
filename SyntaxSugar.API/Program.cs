@@ -11,11 +11,17 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using StackExchange.Redis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("Redis")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -27,7 +33,9 @@ builder.Services.AddScoped<IProblemRepository, ProblemRepository>();
 builder.Services.AddScoped<IProblemWriteRepository, ProblemRepository>();
 builder.Services.AddScoped<IUserProblemRepository, ProblemRepository>();
 builder.Services.AddScoped<ICacheService, RedisCacheService>();
-builder.Services.AddScoped<IProblemService, ProbelemService>();
+builder.Services.AddScoped<IProblemService, ProblemService>();
+
+builder.Services.AddScoped<IAdminProblemService, AdminProblemService>();
 
 builder.Services.AddControllers();
 
@@ -44,7 +52,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var blacklistService = context.HttpContext.RequestServices.GetRequiredService<IBlacklistTokenService>();
+                var token = context.SecurityToken as System.IdentityModel.Tokens.Jwt.JwtSecurityToken;
+                if (token != null && await blacklistService.IsTokenBlacklisted(token.RawData))
+                {
+                    context.Fail("This token has been blacklisted.");
+                }
+            }
+        };
     });
+
 
 builder.Services.AddAuthorization();
 

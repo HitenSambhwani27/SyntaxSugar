@@ -73,7 +73,7 @@ namespace SyntaxSugar.Application.Services
                     Error = "Incorrect Password",
                 };
             }
-            var token =  _tokenService.GetToken(user.Id, user.Username);
+            var token =  _tokenService.GetToken(user.Id, user.Username, user.Role.ToString());
 
             return new LoginResultDto
             {

@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace SyntaxSugar.Application.Services
 {
-    public class ProbelemService: IProblemService
+    public class ProblemService: IProblemService
     {
         private readonly IProblemRepository _problemRepository;
         private readonly ICacheService _cacheService;
         private readonly IUserProblemRepository _userProblemRepository;
 
-        public ProbelemService(IProblemRepository problemRepository, ICacheService cacheService, IUserProblemRepository userProblemRepository)
+        public ProblemService(IProblemRepository problemRepository, ICacheService cacheService, IUserProblemRepository userProblemRepository)
         {
             this._problemRepository = problemRepository;
             this._cacheService = cacheService;

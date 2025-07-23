@@ -17,9 +17,9 @@ namespace SyntaxSugar.Infrastructure.Services
         {
                 this.database = connection.GetDatabase();
         }
-        public async Task<bool> DeleteAsync<T>(string key)
+        public async Task DeleteAsync(string key)
         {
-            return await database.KeyDeleteAsync(key);
+             await database.KeyDeleteAsync(key);
         }
 
         public async Task<T> GetAsync<T>(string key)

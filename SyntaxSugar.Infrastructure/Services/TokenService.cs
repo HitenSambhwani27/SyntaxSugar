@@ -24,12 +24,13 @@ namespace SyntaxSugar.Infrastructure.Services
             _issuer = config["Jwt:Issuer"];
             _audience = config["Jwt:Audience"];
         }
-        public string GetToken(Guid id, string name)
+        public string GetToken(Guid id, string name, string role)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, id.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, name),
+                new Claim(ClaimTypes.Role, role)
             };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor

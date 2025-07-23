@@ -47,10 +47,7 @@ namespace SyntaxSugar.Infrastructure.Repositories
 
         public async Task<IEnumerable<Tag>> GetTagsAsync()
         {
-            return await _context.Tags
-                .Include(t => t.ProblemTags)
-                .ThenInclude(pt => pt.Problem)
-                .ToListAsync();
+            return await _context.Tags.ToListAsync();
         }
 
         public async Task<UserProblemStatus> GetUserProblemStatusAsync(Guid userId, Guid problemId)

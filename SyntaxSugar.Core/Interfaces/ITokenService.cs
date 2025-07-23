@@ -8,6 +8,6 @@ namespace SyntaxSugar.Core.Interfaces
 {
     public interface ITokenService
     {
-         string GetToken( Guid id, string name);
+         string GetToken( Guid id, string name, string role);
     }
 }
