@@ -1,45 +1,82 @@
-# This is the name of your GitHub Actions workflow. It will be displayed in the Actions tab of your GitHub repository.
-name: .NET Build and Test
+# This is the name of your GitHub Actions workflow.
+name: .NET Build, Test, and Release
 
-# This section defines when the workflow will run.
+# This workflow runs on pushes to the 'main' branch.
 on:
-  # Run this workflow on every push to the 'main' branch.
   push:
     branches: [ "main" ]
-  # Also run this workflow on every pull request that targets the 'main' branch.
-  pull_request:
-    branches: [ "main" ]
 
-# This section defines the jobs that will be executed as part of the workflow.
+# Environment variables available to all jobs in the workflow.
+env:
+  DOTNET_VERSION: '7.0.x'      # .NET version to use
+  SOLUTION_FILE_PATH: .        # Path to your solution file
+  PROJECT_PATH: ./SyntaxSugar.API/SyntaxSugar.API.csproj # Path to the API project to be published
+
 jobs:
-  # We are defining a single job named 'build'.
-  build:
-    # This specifies the type of virtual machine to run the job on. We'll use the latest version of Ubuntu.
+  build-and-test:
+    name: Build & Test
     runs-on: ubuntu-latest
 
-    # This section contains the sequence of steps that make up the 'build' job.
     steps:
-    # Step 1: Check out your code
-    # This uses a pre-built action from GitHub to download your repository's code into the runner.
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Step 2: Set up the .NET environment
-    # This uses another pre-built action to install the .NET SDK. We specify version 7.x.
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # Step 3: Restore dependencies
-    # This runs the 'dotnet restore' command, which downloads all the NuGet packages required by your projects.
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ${{ env.SOLUTION_FILE_PATH }}
 
-    # Step 4: Build the solution
-    # This runs the 'dotnet build' command. It compiles your entire solution.
-    # The '--no-restore' flag is a small optimization because we already restored dependencies in the previous step.
-    # The '--configuration Release' flag tells it to build in Release mode, which is standard for CI.
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build ${{ env.SOLUTION_FILE_PATH }} --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test ${{ env.SOLUTION_FILE_PATH }} --no-build --configuration Release
+
+    # Publish the API project to a folder named 'publish'
+    - name: Publish
+      run: dotnet publish ${{ env.PROJECT_PATH }} --configuration Release --output ./publish
+
+    # Upload the 'publish' folder as an artifact so the release job can use it.
+    - name: Upload artifact for release
+      uses: actions/upload-artifact@v3
+      with:
+        name: api-release
+        path: ./publish
+
+  create-release:
+    name: Create Release
+    # This job will only run if the 'build-and-test' job completes successfully.
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Download the artifact that was published by the build job.
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v2
+      with:
+        name: api-release
+
+    # Step 2: Zip the downloaded artifact.
+    - name: Zip the release artifact
+      run: zip -r release.zip .
+
+    # Step 3: Create the GitHub Release.
+    # This action automatically creates a new release and uploads the specified files.
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        # This creates a tag and release name based on the date and time, e.g., "Release-2025-07-29-0830"
+        tag_name: Release-${{ github.run_number }}
+        name: Release ${{ github.run_number }}
+        body: |
+          Automated release created by GitHub Actions.
+          Commit: ${{ github.sha }}
+        # This attaches the 'release.zip' file we created to the release page.
+        files: release.zip
+      env:
+        # The GITHUB_TOKEN is automatically provided by GitHub Actions.
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
