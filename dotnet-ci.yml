@@ -1,0 +1,45 @@
+# This is the name of your GitHub Actions workflow. It will be displayed in the Actions tab of your GitHub repository.
+name: .NET Build and Test
+
+# This section defines when the workflow will run.
+on:
+  # Run this workflow on every push to the 'main' branch.
+  push:
+    branches: [ "main" ]
+  # Also run this workflow on every pull request that targets the 'main' branch.
+  pull_request:
+    branches: [ "main" ]
+
+# This section defines the jobs that will be executed as part of the workflow.
+jobs:
+  # We are defining a single job named 'build'.
+  build:
+    # This specifies the type of virtual machine to run the job on. We'll use the latest version of Ubuntu.
+    runs-on: ubuntu-latest
+
+    # This section contains the sequence of steps that make up the 'build' job.
+    steps:
+    # Step 1: Check out your code
+    # This uses a pre-built action from GitHub to download your repository's code into the runner.
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up the .NET environment
+    # This uses another pre-built action to install the .NET SDK. We specify version 7.x.
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+
+    # Step 3: Restore dependencies
+    # This runs the 'dotnet restore' command, which downloads all the NuGet packages required by your projects.
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # Step 4: Build the solution
+    # This runs the 'dotnet build' command. It compiles your entire solution.
+    # The '--no-restore' flag is a small optimization because we already restored dependencies in the previous step.
+    # The '--configuration Release' flag tells it to build in Release mode, which is standard for CI.
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
