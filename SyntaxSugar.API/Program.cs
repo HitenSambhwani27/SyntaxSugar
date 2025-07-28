@@ -36,6 +36,8 @@ builder.Services.AddScoped<ICacheService, RedisCacheService>();
 builder.Services.AddScoped<IProblemService, ProblemService>();
 
 builder.Services.AddScoped<IAdminProblemService, AdminProblemService>();
+builder.Services.AddScoped<IAiRequestService, AiRequestService>();
+builder.Services.AddScoped<IAiService, AiService>();
 
 builder.Services.AddControllers();
 

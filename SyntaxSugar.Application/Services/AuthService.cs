@@ -41,7 +41,7 @@ namespace SyntaxSugar.Application.Services
                         Username = userDTO.UserName,
                         Email = userDTO.Email,
                         PasswordHash = _passwordHasher.HashedPassword(userDTO.Password),
-                        Role = Role.User // Assuming default role is User
+                        Role = Role.Admin 
                     };
                     await _userRepository.AddUserAsync(user);
                     return true;
@@ -50,7 +50,7 @@ namespace SyntaxSugar.Application.Services
             }
             catch ( Exception exception)
             {
-                // Log exception (not implemented here)
+                
             }
             return false;
         }
